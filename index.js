@@ -40,7 +40,7 @@ require("./models/userDetails");
 
 const User = mongoose.model("UserInfo");
 
-app.post("https://quiz-application-backend.onrender.com/register", async (req, res) => {
+app.post("/register", async (req, res) => {
   const { fname, lname, email, password, userType} = req.body;
 
   const encryptedPassword = await bcrypt.hash(password, 10);
@@ -64,7 +64,7 @@ app.post("https://quiz-application-backend.onrender.com/register", async (req, r
 });
 
 
-app.post("https://quiz-application-backend.onrender.com/login-user", async (req, res) => {
+app.post("/login-user", async (req, res) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
@@ -84,7 +84,7 @@ app.post("https://quiz-application-backend.onrender.com/login-user", async (req,
 });
 
 
-app.post("https://quiz-application-backend.onrender.com/userData", async (req, res) => {
+app.post("/userData", async (req, res) => {
   const { token } = req.body;
   try {
     const user = jwt.verify(token, JWT_SECRET);
@@ -99,7 +99,7 @@ app.post("https://quiz-application-backend.onrender.com/userData", async (req, r
   } catch (error) {}
 });
 
-app.get("https://quiz-application-backend.onrender.com/getAllUsers", async (req,res)=>{
+app.get("/getAllUsers", async (req,res)=>{
   try{
     const allUser = await User.find({});
     res.send({status: "ok", data: allUser});
@@ -108,7 +108,7 @@ app.get("https://quiz-application-backend.onrender.com/getAllUsers", async (req,
   }
 })
 
-app.get("https://quiz-application-backend.onrender.com/getAllUsers/:id", async (req,res)=>{
+app.get("/getAllUsers/:id", async (req,res)=>{
   try{
     const allUser = await User.find({});
     res.send({status: "ok", data: allUser});

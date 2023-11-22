@@ -8,7 +8,7 @@ app.use(express.json());
 require('../models/exam')
 const Exams = mongoose.model("exam");
 
-router.route("https://quiz-application-backend.onrender.com/").post((req,res) => {
+router.route("/").post((req,res) => {
     const examname = req.body.examname;
     const passGrade = req.body.passGrade;
     const time = req.body.time;
@@ -20,7 +20,7 @@ router.route("https://quiz-application-backend.onrender.com/").post((req,res) =>
 })
 
 
-router.get('https://quiz-application-backend.onrender.com/', (req, resp) => {
+router.get('/', (req, resp) => {
     Exam.find().then(data => {
         resp.json(data)
     }).catch(e => {
@@ -29,7 +29,7 @@ router.get('https://quiz-application-backend.onrender.com/', (req, resp) => {
 })
 
 //GET Exam by examId
-router.get("https://quiz-application-backend.onrender.com/exam/:id", async (req, resp) => {
+router.get("/exam/:id", async (req, resp) => {
     try {
         Exam.find({ _id: req.params.id }).then(data => {
             resp.json(data)
@@ -39,7 +39,7 @@ router.get("https://quiz-application-backend.onrender.com/exam/:id", async (req,
     }
 });
 
-router.patch('https://quiz-application-backend.onrender.com/:id', (req, resp) => {
+router.patch('/:id', (req, resp) => {
     Exam.updateOne({ _id: req.params.id }, {
         $set: {
             examname: req.body.examname,
@@ -54,7 +54,7 @@ router.patch('https://quiz-application-backend.onrender.com/:id', (req, resp) =>
 })
 
 
-router.delete('https://quiz-application-backend.onrender.com/:id', (req, resp) => {
+router.delete('/:id', (req, resp) => {
     Exam.deleteOne({ _id: req.params.id })
         .then(data => {
             resp.json(data)

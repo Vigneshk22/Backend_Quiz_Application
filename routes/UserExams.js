@@ -3,7 +3,7 @@ const UserExams = require('../models/userExams');
 const router = express.Router();
 
 
-router.get('https://quiz-application-backend.onrender.com/', (req, resp) => {
+router.get('/', (req, resp) => {
     UserExams.find().then(data => {
         resp.json(data)
     }).catch(e => {
@@ -12,7 +12,7 @@ router.get('https://quiz-application-backend.onrender.com/', (req, resp) => {
 })
 
 //spesific exam
-router.get("https://quiz-application-backend.onrender.com/:id", async (req, resp) => {
+router.get("/:id", async (req, resp) => {
     try {
         UserExams.find({ userId: req.params.id }).then(data => {
             resp.json(data)
@@ -22,7 +22,7 @@ router.get("https://quiz-application-backend.onrender.com/:id", async (req, resp
     }
 });
 
-router.get("https://quiz-application-backend.onrender.com/exam/:id", async (req, resp) => {
+router.get("/exam/:id", async (req, resp) => {
     try {
         UserExams.find({ examId: req.params.id }).then(data => {
             resp.json(data)
@@ -34,7 +34,7 @@ router.get("https://quiz-application-backend.onrender.com/exam/:id", async (req,
 
 
 
-// router.get("https://quiz-application-backend.onrender.com/exam/:id", async (req, resp) => {
+// router.get("/exam/:id", async (req, resp) => {
 //     try {
 //         let resultList = [];
 //         const userExams = UserExams.find({ examId: req.params.id });
@@ -54,7 +54,7 @@ router.get("https://quiz-application-backend.onrender.com/exam/:id", async (req,
 // });
 
 
-router.post('https://quiz-application-backend.onrender.com/', (req, resp) => {
+router.post('/', (req, resp) => {
     const userExams = new UserExams({
         examId: req.body.examId,
         userId: req.body.userId,
@@ -70,7 +70,7 @@ router.post('https://quiz-application-backend.onrender.com/', (req, resp) => {
     })
 })
 
-router.put("https://quiz-application-backend.onrender.com/:id", (req, resp) => {
+router.put("/:id", (req, resp) => {
     UserExams.updateOne({ _id: req.params.id }, {
         $push: {
             examReview: req.body.examReview,
@@ -83,7 +83,7 @@ router.put("https://quiz-application-backend.onrender.com/:id", (req, resp) => {
 })
 
 
-router.patch('https://quiz-application-backend.onrender.com/:id', (req, resp) => {
+router.patch('/:id', (req, resp) => {
     UserExams.updateOne({ _id: req.params.id }, {
         $set: {
             examId: req.body.examId,
@@ -98,7 +98,7 @@ router.patch('https://quiz-application-backend.onrender.com/:id', (req, resp) =>
 })
 
   
-router.delete('https://quiz-application-backend.onrender.com/:id', (req, resp) => {
+router.delete('/:id', (req, resp) => {
     UserExams.deleteOne({ _id: req.params.id })
         .then(data => {
             resp.json(data)
